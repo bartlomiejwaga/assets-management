@@ -8,5 +8,6 @@ interface AssetRepository {
     fun updateAsset(assetRq: Asset): Asset
     fun findAssetById(id: Int): Asset?
     fun findAllAssets(): List<Asset>
+    fun deleteAssetById(id: Int)
 
 }

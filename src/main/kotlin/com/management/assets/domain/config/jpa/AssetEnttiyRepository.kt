@@ -25,6 +25,10 @@ class AssetEntityRepository(val assetRepository: AssetJpaRepository): AssetRepos
         return assetRepository.findAll().mapNotNull { it.toDomain() }
     }
 
+    override fun deleteAssetById(id: Int): Asset? {
+        return assetRepository.deleteById(id)
+    }
+
     private fun Asset.toEntity(): AssetEntity {
         return AssetEntity(id, name, type, description)
     }

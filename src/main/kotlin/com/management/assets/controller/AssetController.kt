@@ -7,24 +7,32 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
 
 @RestController
+@RequestMapping("/assets")
 class AssetController(val assetService: AssetService) {
 
-    @PostMapping("/")
-    fun createAsset(@RequestParam asset: Asset): Asset =
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    fun createAsset(@RequestBody asset: Asset): Asset =
         assetService.createAsset(asset)
 
-    @PutMapping("/")
-    fun updateAsset(@RequestParam asset: Asset): Asset =
+    @PutMapping
+    fun updateAsset(@RequestBody asset: Asset): Asset =
         assetService.createAsset(asset)
 
-    @GetMapping("/asset/{id}")
+    @GetMapping("/{id}")
     fun findOneAsset(@PathVariable("id") id: Int): Asset? {
         return assetService.findOne(id) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
     }
 
-    @GetMapping("/assets")
-    fun findOneAsset(): List<Asset> {
+    @GetMapping
+    fun findAllAssets(): List<Asset> {
         return assetService.findAll()
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun deleteAsset(@PathVariable("id") id: Int) {
+        return assetService.deleteAsset(id)
     }
 
 }
