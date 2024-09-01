@@ -1,7 +1,6 @@
 package com.management.assets.controller
 
 import com.management.assets.domain.dto.Asset
-import com.management.assets.domain.dto.AssetRq
 import com.management.assets.service.AssetService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -18,12 +17,12 @@ class AssetController(val assetService: AssetService) {
     fun updateAsset(@RequestParam asset: Asset): Asset =
         assetService.createAsset(asset)
 
-    @GetMapping("/{id}")
+    @GetMapping("/asset/{id}")
     fun findOneAsset(@PathVariable("id") id: Int): Asset? {
         return assetService.findOne(id) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
     }
 
-    @GetMapping("/")
+    @GetMapping("/assets")
     fun findOneAsset(): List<Asset> {
         return assetService.findAll()
     }

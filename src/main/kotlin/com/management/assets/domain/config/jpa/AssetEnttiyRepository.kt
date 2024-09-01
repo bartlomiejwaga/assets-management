@@ -7,7 +7,7 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
 
 @Repository
-class AssetEntityRepository(val assetRepository: JpaAssetRepository): AssetRepository {
+class AssetEntityRepository(val assetRepository: AssetJpaRepository): AssetRepository {
 
     override fun createAsset(assetRq: Asset): Asset {
         return assetRepository.save(assetRq.toEntity()).toDomain()
@@ -22,7 +22,7 @@ class AssetEntityRepository(val assetRepository: JpaAssetRepository): AssetRepos
     }
 
     override fun findAllAssets(): List<Asset> {
-        return assetRepository.findAll().map { it.toDomain() }
+        return assetRepository.findAll().mapNotNull { it.toDomain() }
     }
 
     private fun Asset.toEntity(): AssetEntity {

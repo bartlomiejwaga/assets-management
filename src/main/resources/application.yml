@@ -1,0 +1,7 @@
+spring:
+  application:
+    name:assets
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    generate-ddl: true
